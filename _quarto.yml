@@ -9,10 +9,19 @@ website:
         text: Home
       - about.qmd
     left: 
-      - text: "Hands-on Exercise"
+      - text: "In-Class Exercises"
+        menu: 
+          - text: "In-Class Exercise 1"
+            href: "In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html"
+      - text: "Hands-On Exercises"
         menu: 
           - text: "Hands-on Exercise 1"
             href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
+      
+      - text: "Take-Home Exercises"
+        menu: 
+          - text: "Take-Home Exercise 1"
+            href: "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html"
 
 format:
   html:
