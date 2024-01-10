@@ -2,13 +2,13 @@ project:
   type: website
 
 website:
-  title: "novia's is415 journey"
+  title: "Novia's IS415 Coursework"
   navbar:
-    right:
+    left:
       - href: index.qmd
         text: Home
       - about.qmd
-    left: 
+    right: 
       - text: "In-Class Exercises"
         menu: 
           - text: "In-Class Exercise 1"
