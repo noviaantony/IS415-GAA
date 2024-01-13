@@ -324,7 +324,6 @@ ggplot(data=mpsz3414,
 ```
 
 
-
 ## 8.0 Final Reflections
 It's been a rewarding experience, delving into the intricacies of spatial data and understanding how to manipulate and visualize it effectively. The hands-on work with tools like sf and ggplot2 has been particularly enlightening, helping me to see data in a more dimensional and contextual way.It's fascinating how transforming data into different projections or creating simple buffers can reveal entirely new perspectives. 
 

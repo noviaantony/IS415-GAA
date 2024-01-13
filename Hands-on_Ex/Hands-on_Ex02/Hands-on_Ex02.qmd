@@ -1,0 +1,12 @@
+---
+title: "Hands-on Exercise 2: Thematic Mapping and GeoVisualisation with R"
+date: "`r Sys.Date()`"
+author:
+  - name: Novia Antony
+description: |
+  welcome to my second hands-on exercise where....
+
+format:
+  html:
+    toc: true
+---
