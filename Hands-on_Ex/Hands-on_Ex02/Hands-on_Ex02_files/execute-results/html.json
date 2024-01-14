@@ -1,0 +1,14 @@
+{
+  "hash": "e46a0fda5015d532695b7eddfaf93141",
+  "result": {
+    "markdown": "---\ntitle: \"Hands-on Exercise 2: Thematic Mapping and GeoVisualisation with R\"\ndate: \"2024-01-14\"\nauthor:\n  - name: Novia Antony\ndescription: |\n  welcome to my second hands-on exercise where....\n\nformat:\n  html:\n    toc: true\n---\n\n## 1.0 Overview\n\n## 2.0 Setup\n\n### 2.1 Setting Up Your File Directory\n\n### 2.2 Data Sources\n\n### 2.3 Installation of Packages\n\nIn this exercise, we're focusing on the following R packages:\n\n- tmap: This is our go-to package for crafting thematic maps, including types like choropleths and bubble maps.\nFor a comprehensive analysis, we'll also revisit packages from our previous lesson:\n\n- sf: A key package for loading, handling, and manipulating geospatial data.\n- tidyverse: A collection of packages essential for data import, manipulation, and visualization, among other data science activities.\n\nHere's a quick script to ensure we have all these packages ready:\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(sf, tmap, tidyverse)\n```\n\n::: {.cell-output .cell-output-stderr}\n```\nalso installing the dependencies 'lazyeval', 'terra', 'gridExtra', 'geometries', 'jsonify', 'rapidjsonr', 'sfheaders', 'lwgeom', 'dichromat', 'XML', 'crosstalk', 'leaflet.providers', 'png', 'raster', 'sp', 'viridis', 'geojsonsf', 'tmaptools', 'stars', 'htmlwidgets', 'widgetframe', 'leaflet', 'leafsync', 'leafem', 'abind'\n```\n:::\n\n::: {.cell-output .cell-output-stdout}\n```\n\nThe downloaded binary packages are in\n\t/var/folders/cc/_xwwcqm53pn_p189dr9kbxj80000gn/T//Rtmp30bwgh/downloaded_packages\n```\n:::\n\n::: {.cell-output .cell-output-stderr}\n```\n\ntmap installed\n```\n:::\n:::\n\n## 3.0 Importing Data into R\n\n### 3.1 Importing Geospatial Data\n\n### 3.2 Importing Attribute Data\n\n## 4.0 Data Preparation\n\n### 4.1 Data Wrangling\n\n## 5.0 Choropleth Maps\n\n## 6.0 Final Reflections\n\n\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

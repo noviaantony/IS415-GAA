@@ -10,3 +10,60 @@ format:
   html:
     toc: true
 ---
+## 1.0 Overview
+
+## 2.0 Setup
+
+### 2.1 Setting Up Your File Directory
+
+..explain later
+
+### 2.2 Data Sources
+
+-   Master Plan 2014 Subzone Boundary (Web) from data.gov.sg
+-   Singapore Residents by Planning Area / Subzone, Age Group, Sex and Type of Dwelling, June 2011-2020 from Department of Statistics, Singapore
+
+### 2.3 Installation of Packages
+
+In this exercise, we're focusing on the following R packages:
+
+- tmap: This is our go-to package for crafting thematic maps, including types like choropleths and bubble maps.
+For a comprehensive analysis, we'll also revisit packages from our previous lesson:
+
+- sf: A key package for loading, handling, and manipulating geospatial data.
+- tidyverse: A collection of packages essential for data import, manipulation, and visualization, among other data science activities.
+
+Here's a quick script to ensure we have all these packages ready:
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse)
+```
+
+## 3.0 Importing Data into R
+
+### 3.1 Importing Geospatial Data
+
+```{r}
+mpsz <- st_read(dsn = "data/geospatial", 
+                layer = "MP14_SUBZONE_WEB_PL")
+mpsz
+```
+
+### 3.2 Importing Attribute Data
+
+```{r}
+popdata <- read_csv("data/aspatial/respopagesextod2011to2020.csv")
+```
+
+## 4.0 Data Preparation
+
+### 4.1 Data Wrangling
+
+## 5.0 Choropleth Maps
+
+## 6.0 Final Reflections
+
+
+
+
+

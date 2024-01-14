@@ -15,10 +15,10 @@ format:
 
 In this Hands-On Exercise, we will get a brief introduction to Geospatial Analytics with R programming! We will cover the following:
 
-- Setting up packages & importing data into R
-- Geo-processing with sf
-- Data wrangling with dplyr
-- Exploratory Data Analysis (EDA) with ggplot2
+-   Setting up packages & importing data into R
+-   Geo-processing with sf
+-   Data wrangling with dplyr
+-   Exploratory Data Analysis (EDA) with ggplot2
 
 ## 2.0 Setup
 
@@ -26,33 +26,33 @@ In this Hands-On Exercise, we will get a brief introduction to Geospatial Analyt
 
 Let's get our file directory organized for this project. Here’s what you need to do:
 
-- Inside this IS415-GAA folder, create a new folder named Hands-on_Ex. Think of this as the main hub for all our hands-on exercises.
-- Now, in the Hands-on_Ex folder, create another folder specifically for this week's exercise. I've named mine Hands-on_Ex01 – it's a good way to keep things orderly.
-- Within the Hands-on_Ex01 folder, we're going to need a place to store our data. Create a folder called data.
-- Inside the data folder, make two subfolders: one named geospatial and the other aspatial. As their names suggest, we'll use these to keep our geospatial and aspatial data files separate and organized. All the data we gather in the next section will go here.
-- By setting up this structure, we'll keep our project neat and navigable. It'll make our life a whole lot easier as we dive into the exercises!
-
+-   Inside this IS415-GAA folder, create a new folder named Hands-on_Ex. Think of this as the main hub for all our hands-on exercises.
+-   Now, in the Hands-on_Ex folder, create another folder specifically for this week's exercise. I've named mine Hands-on_Ex01 – it's a good way to keep things orderly.
+-   Within the Hands-on_Ex01 folder, we're going to need a place to store our data. Create a folder called data.
+-   Inside the data folder, make two subfolders: one named geospatial and the other aspatial. As their names suggest, we'll use these to keep our geospatial and aspatial data files separate and organized. All the data we gather in the next section will go here.
+-   By setting up this structure, we'll keep our project neat and navigable. It'll make our life a whole lot easier as we dive into the exercises!
 
 ### 2.2 Data Sources
 
 For our hands-on exercise, we're going to dive into some geo-spatial analytics, and that means we need data first! Here's where you'll find the stuff we need:
 
-- From data.gov.sg:
-  - [Master Plan 2014 Subzone Boundary](https://beta.data.gov.sg/datasets/d_d14da225fccf921049ab64238ff473d9/view)
-  - [Pre-Schools Location](https://beta.data.gov.sg/datasets/d_a72bcd23e208d995f3bd4eececeaca43/view)
-- From LTADataMall:
-  - [Cycling Path](https://www.mytransport.sg/content/mytransport/home/dataMall.html)
-- From Inside Airbnb:
-  - [Latest version of Singapore Airbnb listing data](http://insideairbnb.com/singapore/)
-  
+-   From data.gov.sg:
+    -   [Master Plan 2014 Subzone Boundary](https://beta.data.gov.sg/datasets/d_d14da225fccf921049ab64238ff473d9/view)
+    -   [Pre-Schools Location](https://beta.data.gov.sg/datasets/d_a72bcd23e208d995f3bd4eececeaca43/view)
+-   From LTADataMall:
+    -   [Cycling Path](https://www.mytransport.sg/content/mytransport/home/dataMall.html)
+-   From Inside Airbnb:
+    -   [Latest version of Singapore Airbnb listing data](http://insideairbnb.com/singapore/)
+
 Now, once you've got all these datasets, here's what you do next: Download them and gather them into one organized place. Remember our data folder in Hands-on_Ex01? Inside, you'll see two subfolders named geospatial and aspatial. You'll want to put the geospatial datasets (like the cycling paths, pre-school locations, and subzone boundaries) into the geospatial folder. The aspatial dataset, like the listings.csv from the Airbnb data, should go into the aspatial folder. This setup will keep things super organized, making it easy for us to navigate and use the data efficiently. Let's get to it! 🌍💻📈
 
 ### 2.3 Installation of Packages
+
 Let's dive into some cool R packages we're going to use in this exercise:
 
-- [sf](https://r-spatial.github.io/sf/): This one's our go-to for dealing with geospatial data. Think of importing, managing, and processing all that map data.
-- [tidyverse](https://www.tidyverse.org/packages/): It's like a Swiss Army knife for data science in R. We use it for importing, wrangling, and visualizing data. It's not just one package, but a whole family of them! You've got readr for reading data, tidyr for tidying it up, dplyr for data manipulation & ggplot2 for creating awesome graphics.
-- [pacman](https://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html): This is our package manager. It helps us load and manage other packages more smoothly. Think of it as a helpful assistant for your package needs.
+-   [sf](https://r-spatial.github.io/sf/): This one's our go-to for dealing with geospatial data. Think of importing, managing, and processing all that map data.
+-   [tidyverse](https://www.tidyverse.org/packages/): It's like a Swiss Army knife for data science in R. We use it for importing, wrangling, and visualizing data. It's not just one package, but a whole family of them! You've got readr for reading data, tidyr for tidying it up, dplyr for data manipulation & ggplot2 for creating awesome graphics.
+-   [pacman](https://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html): This is our package manager. It helps us load and manage other packages more smoothly. Think of it as a helpful assistant for your package needs.
 
 Run the R code in the console in order to install tidyverse & sf
 
@@ -68,10 +68,10 @@ When working with geospatial analytics, we often deal with shapefiles and other 
 
 #### 3.11 Opening Shapefiles 🌍
 
-- The Basics: Shapefiles store geospatial data like maps of regions, roads, or points of interest. They're pretty common in geographic data analysis.
-- Using st_read: This function is our key to unlocking the data in shapefiles. You tell it where the file is and what layer of data you want to read.
+-   The Basics: Shapefiles store geospatial data like maps of regions, roads, or points of interest. They're pretty common in geographic data analysis.
+-   Using st_read: This function is our key to unlocking the data in shapefiles. You tell it where the file is and what layer of data you want to read.
 
-#### 3.12 How We Use It 🗂 
+#### 3.12 How We Use It 🗂
 
 Here are some examples of st_read in action:
 
@@ -80,6 +80,7 @@ Here are some examples of st_read in action:
 ```{r}
 mpsz = st_read(dsn = "data/geospatial", layer = "MP14_SUBZONE_WEB_PL")
 ```
+
 This line reads in data about subzone boundaries. It looks inside the `data/geospatial` directory for a layer named "MP14_SUBZONE_WEB_PL".
 
 ##### Loading Cycling Paths:
@@ -87,6 +88,7 @@ This line reads in data about subzone boundaries. It looks inside the `data/geos
 ```{r}
 cyclingpath = st_read(dsn = "data/geospatial", layer = "CyclingPathGazette")
 ```
+
 Here, we're grabbing data on cycling paths from the same directory but a different layer.
 
 ##### Getting Pre-School Locations (KML Format):
@@ -94,16 +96,19 @@ Here, we're grabbing data on cycling paths from the same directory but a differe
 ```{r}
 preschool = st_read("data/geospatial/PreSchoolsLocation.kml")
 ```
+
 This time, we're loading pre-school locations from a KML file, another type of geospatial data format.
 
-#### 3.13  What to Expect 📊
-When you run st_read, you'll see an output message in R. This tells you how many features (like points, lines, or shapes) are in the data, what type they are (like polygons or points), and the coordinate system they use.
-For example, with our subzone data (mpsz), it might say there are 323 features, all polygons, in a certain coordinate system.
+#### 3.13 What to Expect 📊
+
+When you run st_read, you'll see an output message in R. This tells you how many features (like points, lines, or shapes) are in the data, what type they are (like polygons or points), and the coordinate system they use. For example, with our subzone data (mpsz), it might say there are 323 features, all polygons, in a certain coordinate system.
 
 ### 3.2 Importing Aspatial Data in R
+
 When it comes to aspatial data, like our Airbnb listings dataset, there's an extra step in the import process. We'll first pull it into R as a tibble data frame and then convert it into a simple feature data frame, which is super handy for geospatial analysis.
 
 #### 3.21 How to Import Aspatial Data
+
 Since our Airbnb listings are in a CSV file, we'll use the read_csv() function from the readr package. It looks like this:
 
 ```{r}
@@ -111,8 +116,8 @@ listings <- read_csv("data/aspatial/listings.csv")
 glimpse(listings) 
 ```
 
-
 #### 3.22 Converting Aspatial Data to Geospatial Data
+
 Now, let's morph our listings data into a format that's easier for geospatial analysis. We use the st_as_sf() function from the sf package for this:
 
 ```{r}
@@ -126,18 +131,19 @@ Now, let's morph our listings data into a format that's easier for geospatial an
 
 What does this chunk of code do?
 
-- It takes our listings tibble and converts it into a simple feature data frame.
-- We specify which columns are our coordinates (longitude and latitude).
-- We set the Coordinate Reference System (CRS) to 4326 (that's the code for WGS84) and then transform it to 3414 (a common CRS for Singapore).
-- After running this, you'll notice:
-  - Our listings_sf now has a new column called geometry.
-  - longitude and latitude have been combined into this geometry column, which is perfect for mapping and spatial analysis!
-  
+-   It takes our listings tibble and converts it into a simple feature data frame.
+-   We specify which columns are our coordinates (longitude and latitude).
+-   We set the Coordinate Reference System (CRS) to 4326 (that's the code for WGS84) and then transform it to 3414 (a common CRS for Singapore).
+-   After running this, you'll notice:
+    -   Our listings_sf now has a new column called geometry.
+    -   longitude and latitude have been combined into this geometry column, which is perfect for mapping and spatial analysis!
+
 ## 4.0 Exploring the Contents of Our Data Frames
 
 Now that we've got our data frames ready, let's find out what's inside them. We'll use three easy methods to peek into our data frames and understand their structure and content.
 
 ### 4.1 Quick Peek with st_geometry()
+
 Need just a basic overview of your geospatial data? st_geometry() is perfect for that:
 
 ```{r}
@@ -147,6 +153,7 @@ st_geometry(mpsz)
 `st_geometry` gives us a snapshot of the essential features like the geometry type (e.g., MULTIPOLYGON), dimensions, bounding box, and the coordinate reference system (CRS). It's a fast way to get the gist of our geospatial data.
 
 ### 4.2 A Deeper Look with glimpse()
+
 For more detail, especially about the attributes of our data, glimpse() from the dplyr package comes in handy:
 
 ```{r}
@@ -158,6 +165,7 @@ glimpse(mpsz)
 This function gives us a snapshot of the essential features like the geometry type (e.g., MULTIPOLYGON), dimensions, bounding box, and the coordinate reference system (CRS). It's a fast way to get the gist of our geospatial data.
 
 ### 4.3 Detailed View with head()
+
 When you want to see actual data entries, head() is your go-to:
 
 ```{r}
@@ -165,7 +173,6 @@ head(mpsz)
 ```
 
 This function displays the first few entries of our data frame, giving us a clear picture of what each record looks like, including the values in each field and the geometry data. It's like a mini-preview of our dataset.
-
 
 ## 5.0 Plotting & Projection
 
@@ -197,6 +204,7 @@ plot(st_geometry(mpsz))
 Projections are crucial in geospatial analysis, helping us transform data into the appropriate coordinate system for our analysis.
 
 #### 5.2.1 Fixing Missing/Inaccurate Coordinate Systems
+
 Sometimes our data might have missing or incorrect coordinate systems. Here's how we handle that:
 
 First, check the current CRS with st_crs():
@@ -216,12 +224,14 @@ st_crs(mpsz3414)
 Now, mpsz3414 has the correct SVY21 / Singapore TM coordinate system.
 
 #### 5.2.2 Dealing with Inappropriate Coordinate Systems
+
 Remember our overview in section 3.0? Our datasets might have different coordinate systems. For instance, if preschool is in WGS84 but needs to be in SVY21 for accurate geoprocessing, we transform it:
 
 ```{r}
 preschool3414 <- st_transform(preschool, crs = 3414)
 st_geometry(preschool3414)
 ```
+
 This changes preschool to the SVY21 projected coordinate system, making it compatible with our other data for analysis.
 
 ## 6.0 Geoprocessing with sf
@@ -230,12 +240,13 @@ This changes preschool to the SVY21 projected coordinate system, making it compa
 
 Buffering means adding space around a line, like the width of a path plus some extra room.
 
-- Example with a 5 Meter Buffer: We add a 5-meter buffer around our cycling paths
+-   Example with a 5 Meter Buffer: We add a 5-meter buffer around our cycling paths
 
 ```{r}
 buffer_cycling <- st_buffer(cyclingpath, dist=5, nQuadSegs = 30)
 ```
-- Calculating Buffer Area: Next, we find out how much space these buffers take up
+
+-   Calculating Buffer Area: Next, we find out how much space these buffers take up
 
 ```{r}
 buffer_cycling$AREA <- st_area(buffer_cycling)
@@ -243,13 +254,14 @@ sum(buffer_cycling$AREA)
 ```
 
 ### 6.2 Point-In-Polygon Count
+
 Point in Polygon Count is about figuring out how many points are inside a certain area. For instance, counting how many preschools are in each zone. We use st_intersects, not st_intersection, for this task:
 
 ```{r}
 mpsz3414$`PreSch Count`<- lengths(st_intersects(mpsz3414, preschool3414))
 
 ```
-  
+
 ### 6.3 Summary Statistics
 
 To get a quick overview of our data, like the number of preschools in each zone, we print summary stats:
@@ -261,33 +273,33 @@ summary(mpsz3414$`PreSch Count`)
 ```
 
 ### 6.4 Show Top Values with top_n
+
 top_n helps us display the areas with the most preschools:
-  
+
 ```{r}
 top_n(mpsz3414, 3, `PreSch Count`)
-```  
+```
 
 ### 6.5 Calculating Density with `mutate`
 
 Finally, we calculate the preschool density in each subzone:
 
-- First, we find the area of each subzone.
-- Then, we use mutate to create a new field, PreSch Density, by dividing the preschool count by the area.
+-   First, we find the area of each subzone.
+-   Then, we use mutate to create a new field, PreSch Density, by dividing the preschool count by the area.
 
 ```{r}
 mpsz3414$Area <- mpsz3414 %>%
   st_area()
 mpsz3414 <- mpsz3414 %>%
   mutate(`PreSch Density` = `PreSch Count`/Area * 1000000)
-```  
-
+```
 
 ## 7.0 Exploratory Data Analysis (EDA)
 
 In this EDA section, we'll explore various ggplot2 functions to create informative and accurate statistical graphs for better data visualization and understanding.
 
+## 7.1 EDA Histograms of Pre-school Density
 
-## 7.1 EDA Histograms of Pre-school Density 
 We'll start with a basic histogram using hist() to examine the distribution of PreSch Density:
 
 ```{r}
@@ -323,22 +335,10 @@ ggplot(data=mpsz3414,
 
 ```
 
-
 ## 8.0 Final Reflections
-It's been a rewarding experience, delving into the intricacies of spatial data and understanding how to manipulate and visualize it effectively. The hands-on work with tools like sf and ggplot2 has been particularly enlightening, helping me to see data in a more dimensional and contextual way.It's fascinating how transforming data into different projections or creating simple buffers can reveal entirely new perspectives. 
+
+It's been a rewarding experience, delving into the intricacies of spatial data and understanding how to manipulate and visualize it effectively. The hands-on work with tools like sf and ggplot2 has been particularly enlightening, helping me to see data in a more dimensional and contextual way.It's fascinating how transforming data into different projections or creating simple buffers can reveal entirely new perspectives.
 
 That's a wrap on this week's exercise! I'm excited to dive deeper into geospatial analytics. We're only just beginning, and there's a ton more out there for us to discover and play around with!
 
-
 ![](https://i.imgflip.com/7xmi7j.jpg)
-
-
-
-
-
-
-
-
-
-
-

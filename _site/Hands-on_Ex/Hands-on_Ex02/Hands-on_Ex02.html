@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Novia Antony">
+<meta name="dcterms.date" content="2024-01-14">
 <meta name="description" content="welcome to my second hands-on exercise where….">
 
 <title>Novia’s IS415 Coursework - Hands-on Exercise 2: Thematic Mapping and GeoVisualisation with R</title>
@@ -21,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -142,7 +177,30 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1.0 Overview</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">2.0 Setup</a>
+  <ul class="collapse">
+  <li><a href="#setting-up-your-file-directory" id="toc-setting-up-your-file-directory" class="nav-link" data-scroll-target="#setting-up-your-file-directory">2.1 Setting Up Your File Directory</a></li>
+  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">2.2 Data Sources</a></li>
+  <li><a href="#installation-of-packages" id="toc-installation-of-packages" class="nav-link" data-scroll-target="#installation-of-packages">2.3 Installation of Packages</a></li>
+  </ul></li>
+  <li><a href="#importing-data-into-r" id="toc-importing-data-into-r" class="nav-link" data-scroll-target="#importing-data-into-r">3.0 Importing Data into R</a>
+  <ul class="collapse">
+  <li><a href="#importing-geospatial-data" id="toc-importing-geospatial-data" class="nav-link" data-scroll-target="#importing-geospatial-data">3.1 Importing Geospatial Data</a></li>
+  <li><a href="#importing-attribute-data" id="toc-importing-attribute-data" class="nav-link" data-scroll-target="#importing-attribute-data">3.2 Importing Attribute Data</a></li>
+  </ul></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">4.0 Data Preparation</a>
+  <ul class="collapse">
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">4.1 Data Wrangling</a></li>
+  </ul></li>
+  <li><a href="#choropleth-maps" id="toc-choropleth-maps" class="nav-link" data-scroll-target="#choropleth-maps">5.0 Choropleth Maps</a></li>
+  <li><a href="#final-reflections" id="toc-final-reflections" class="nav-link" data-scroll-target="#final-reflections">6.0 Final Reflections</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -171,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
+      <p class="date">January 14, 2024</p>
     </div>
   </div>
   
@@ -181,8 +239,66 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">1.0 Overview</h2>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">2.0 Setup</h2>
+<section id="setting-up-your-file-directory" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-your-file-directory">2.1 Setting Up Your File Directory</h3>
+</section>
+<section id="data-sources" class="level3">
+<h3 class="anchored" data-anchor-id="data-sources">2.2 Data Sources</h3>
+</section>
+<section id="installation-of-packages" class="level3">
+<h3 class="anchored" data-anchor-id="installation-of-packages">2.3 Installation of Packages</h3>
+<p>In this exercise, we’re focusing on the following R packages:</p>
+<ul>
+<li><p>tmap: This is our go-to package for crafting thematic maps, including types like choropleths and bubble maps. For a comprehensive analysis, we’ll also revisit packages from our previous lesson:</p></li>
+<li><p>sf: A key package for loading, handling, and manipulating geospatial data.</p></li>
+<li><p>tidyverse: A collection of packages essential for data import, manipulation, and visualization, among other data science activities.</p></li>
+</ul>
+<p>Here’s a quick script to ensure we have all these packages ready:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, tmap, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>also installing the dependencies 'lazyeval', 'terra', 'gridExtra', 'geometries', 'jsonify', 'rapidjsonr', 'sfheaders', 'lwgeom', 'dichromat', 'XML', 'crosstalk', 'leaflet.providers', 'png', 'raster', 'sp', 'viridis', 'geojsonsf', 'tmaptools', 'stars', 'htmlwidgets', 'widgetframe', 'leaflet', 'leafsync', 'leafem', 'abind'</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/cc/_xwwcqm53pn_p189dr9kbxj80000gn/T//Rtmp30bwgh/downloaded_packages</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+tmap installed</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="importing-data-into-r" class="level2">
+<h2 class="anchored" data-anchor-id="importing-data-into-r">3.0 Importing Data into R</h2>
+<section id="importing-geospatial-data" class="level3">
+<h3 class="anchored" data-anchor-id="importing-geospatial-data">3.1 Importing Geospatial Data</h3>
+</section>
+<section id="importing-attribute-data" class="level3">
+<h3 class="anchored" data-anchor-id="importing-attribute-data">3.2 Importing Attribute Data</h3>
+</section>
+</section>
+<section id="data-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="data-preparation">4.0 Data Preparation</h2>
+<section id="data-wrangling" class="level3">
+<h3 class="anchored" data-anchor-id="data-wrangling">4.1 Data Wrangling</h3>
+</section>
+</section>
+<section id="choropleth-maps" class="level2">
+<h2 class="anchored" data-anchor-id="choropleth-maps">5.0 Choropleth Maps</h2>
+</section>
+<section id="final-reflections" class="level2">
+<h2 class="anchored" data-anchor-id="final-reflections">6.0 Final Reflections</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

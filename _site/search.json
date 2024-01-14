@@ -138,5 +138,40 @@
     "title": "Hands-on Exercise 1: Geospatial Data Science with R",
     "section": "7.2 DIY Challenge: Creating a Scatterplot using ggplot2",
     "text": "7.2 DIY Challenge: Creating a Scatterplot using ggplot2\nCreate a scatterplot using ggplot2 to show the relationship between Pre-school Density and Count. We’ve already prepared the necessary variables. Use geom_point for the scatterplot and customize the appearance:\n\nggplot(data=mpsz3414, \n       aes(y = `PreSch Count`, \n           x= as.numeric(`PreSch Density`))) +\n  geom_point(color=\"black\", \n             fill=\"light blue\") +\n  xlim(0, 40) +\n  ylim(0, 40) +\n  labs(title = \"\",\n       x = \"Pre-school density (per km sq)\",\n       y = \"Pre-school count\")\n\nWarning: Removed 2 rows containing missing values (`geom_point()`)."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#setup",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#setup",
+    "title": "Hands-on Exercise 2: Thematic Mapping and GeoVisualisation with R",
+    "section": "2.0 Setup",
+    "text": "2.0 Setup\n\n2.1 Setting Up Your File Directory\n\n\n2.2 Data Sources\n\n\n2.3 Installation of Packages\nIn this exercise, we’re focusing on the following R packages:\n\ntmap: This is our go-to package for crafting thematic maps, including types like choropleths and bubble maps. For a comprehensive analysis, we’ll also revisit packages from our previous lesson:\nsf: A key package for loading, handling, and manipulating geospatial data.\ntidyverse: A collection of packages essential for data import, manipulation, and visualization, among other data science activities.\n\nHere’s a quick script to ensure we have all these packages ready:\n\npacman::p_load(sf, tmap, tidyverse)\n\nalso installing the dependencies 'lazyeval', 'terra', 'gridExtra', 'geometries', 'jsonify', 'rapidjsonr', 'sfheaders', 'lwgeom', 'dichromat', 'XML', 'crosstalk', 'leaflet.providers', 'png', 'raster', 'sp', 'viridis', 'geojsonsf', 'tmaptools', 'stars', 'htmlwidgets', 'widgetframe', 'leaflet', 'leafsync', 'leafem', 'abind'\n\n\n\nThe downloaded binary packages are in\n    /var/folders/cc/_xwwcqm53pn_p189dr9kbxj80000gn/T//Rtmp30bwgh/downloaded_packages\n\n\n\ntmap installed"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data-into-r",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data-into-r",
+    "title": "Hands-on Exercise 2: Thematic Mapping and GeoVisualisation with R",
+    "section": "3.0 Importing Data into R",
+    "text": "3.0 Importing Data into R\n\n3.1 Importing Geospatial Data\n\n\n3.2 Importing Attribute Data"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#data-preparation",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#data-preparation",
+    "title": "Hands-on Exercise 2: Thematic Mapping and GeoVisualisation with R",
+    "section": "4.0 Data Preparation",
+    "text": "4.0 Data Preparation\n\n4.1 Data Wrangling"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#choropleth-maps",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#choropleth-maps",
+    "title": "Hands-on Exercise 2: Thematic Mapping and GeoVisualisation with R",
+    "section": "5.0 Choropleth Maps",
+    "text": "5.0 Choropleth Maps"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#final-reflections",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#final-reflections",
+    "title": "Hands-on Exercise 2: Thematic Mapping and GeoVisualisation with R",
+    "section": "6.0 Final Reflections",
+    "text": "6.0 Final Reflections"
   }
 ]
