@@ -4,24 +4,174 @@ date: "`r Sys.Date()`"
 author:
   - name: Novia Antony
 description: |
-  ...
-
+  welcome to my in-class exercise 2! we will explore the GrabPosisi data set & packages such as  arrow, lubridate, etc in this exercise
+  
 format:
   html:
     toc: true
+    code-fold: false
+    cold-summary: view code
+execute:
+  eval: true # auto runs the code chunks
+  echo: true # display code chunk
+  warning: false # does not print warning notes
 ---
 
 ## 1.0 Getting Started
 
 we will use arrow, lubridate, tidyverse, tmap & sf in today's in-class exercise!
 
+- lubridate helps you to work with date & time
+- arrow allows us to read parquet files
+
+**Question:** 
+Write a code chunk to load the R packages into R environment.
+
 ```{r}
+pacman::p_load(tidyverse,sf,tmap,arrow,lubridate)
 ```
 
 ## 2.0 Import Grab-Posisi Dataset
 
-## 3.0 Converting into sf tibble data.frame
+**Question:** 
+Write a code chunk to import part-00000-8bbff892-97d2-4011-9961-703e38972569.c000.snappy.parquet by using appropriate function of arrow package into R. Call the file df.
 
-## 4.0 Visualising as Point Symbol Map
+- cant just put part-0000 for some reason
 
-## 5.0 Importing Master Plan 2019 Planning Subzone Boundary
+```{r}
+#| eval: false
+df <- read_parquet("data/GrabPosisi/part-00000-8bbff892-97d2-4011-9961-703e38972569.c000.snappy.parquet")
+```
+
+**Question:** 
+
+Write a code chunk to convert the data type of pingtimestamp from character to date-time.
+
+- the date time is numerical & cant be easily understood
+- this basically overwrites the df object
+
+```{r}
+#| eval: false
+df$pingtimestamp <- as_datetime(df$pingtimestamp)
+```
+
+
+**Question:** 
+Write a code chunk to save the reformatted df into a new rds file called part0.rds. Save the output into a sub-folder call rds.
+
+```{r}
+write_rds(df, "data/rds/part0.rds")
+```
+
+## 3.0 Extracting Trip Staring Location
+
+**Question**
+- extracting trips’ origin locations.
+- derive three new columns (i.e. variables) for weekday, starting hour and day of the month.
+- name the output tibble data.frame origin_df.
+- hint: use lubridate!
+
+```{r}
+#| eval: false
+origin_df <- df %>%
+  group_by(trj_id) %>%
+  arrange(pingtimestamp) %>%
+  filter(row_number()==1) %>%
+  mutate(weekday = wday(pingtimestamp,
+                        label=TRUE,
+                        abbr=TRUE),
+         start_hr = factor(hour(pingtimestamp)),
+         day = factor(mday(pingtimestamp)))
+```
+
+- call the df file 
+  -    %>%  : pipe for formatting & avoid the code from truncating
+- group_by() based on trajectory
+- sort rows based on time stamp (by default its sorted in ascending order)
+- every trajectory, we filter out the 1st row (the first trip will be the origin)
+- mutute helps to derive new variables => weekday & start_hr & day
+  - wday will tell us if the timestamp is a weekday
+    - label=TRUE : true ensure the day is not displayed as a number?
+    - abbr=TRUE : abbrevation (eg: mon instead of monday)
+  - factor changes it to ordinal scale => order data
+  - hour will tell us the hour (and since this the first trip, it is the starting hour)
+  - mday will tell us the day
+
+## 4.0 Extracting Trip Ending Location
+
+**Question:** 
+Write a code chunk to extract trips’ destination locations. Similarly, derive the weekday, ending hour and day of the month columns.
+
+```{r}
+#| eval: false
+dest_df <- df %>%
+  group_by(trj_id) %>%
+  arrange(desc(pingtimestamp)) %>% # instead of arranging in asc we arrange in desc (destination location trip time will be after the staring location)
+  filter(row_number()==1) %>%
+  mutate(weekday = wday(pingtimestamp,
+                        label=TRUE,
+                        abbr=TRUE),
+         end_hr = factor(hour(pingtimestamp)),
+         day = factor(mday(pingtimestamp)))
+```
+
+- instead of arranging in asc we arrange in desc 
+  - destination location trip time will be after the staring location
+
+### 4.1 Save rds Object
+  
+```{r}
+#| eval: false
+#| echo: false
+write_rds(origin_df, "data/rds/origin_df.rds") # makes sure that object classes dont disappear! (even after i save as csv)
+write_rds(dest_df, "data/rds/dest_df.rds") # makes sure that object classes dont disappear! (even after i save as csv)
+```
+
+- if we wanna ensure all our objects can be reused in rds format even if i export, save the rds!
+- we set #| echo: false
+  - hides the code on the page
+
+### 4.2 Import Data
+
+because we saved the rds object, it is very easy to just import the data!
+
+- i do not want to run 2.0,3.0 & 4.0 anymore => set to eval:false
+  - this ensure that the code is displayed but not run
+
+
+```{r}
+origin_df <- read_rds("data/rds/origin_df.rds")
+dest_df <- read_rds("data/rds/dest_df.rds")
+```
+
+
+## 5.0 Visualising frequency distribution
+
+**Question:** 
+
+we will need to use ggplot2!
+
+```{r}
+ggplot(data=origin_df, 
+       aes(x=weekday)) + 
+  geom_bar()
+```
+
+## 6.0 Converting into sf tibble data.frame
+
+**Question:** 
+
+```{r}
+```
+
+## 7.0 Visualising as Point Symbol Map
+**Question:** 
+
+```{r}
+```
+
+## 8.0 Importing Master Plan 2019 Planning Subzone Boundary
+**Question:** 
+
+```{r}
+```

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Novia Antony">
 <meta name="dcterms.date" content="2024-01-15">
-<meta name="description" content="…">
+<meta name="description" content="welcome to my in-class exercise 2! we will explore the GrabPosisi data set &amp; packages such as arrow, lubridate, etc in this exercise">
 
 <title>Novia’s IS415 Coursework - In-Class Exercise 2: Thematic Mapping and GeoVisualisation with R</title>
 <style>
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -149,9 +183,16 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">1.0 Getting Started</a></li>
   <li><a href="#import-grab-posisi-dataset" id="toc-import-grab-posisi-dataset" class="nav-link" data-scroll-target="#import-grab-posisi-dataset">2.0 Import Grab-Posisi Dataset</a></li>
-  <li><a href="#converting-into-sf-tibble-data.frame" id="toc-converting-into-sf-tibble-data.frame" class="nav-link" data-scroll-target="#converting-into-sf-tibble-data.frame">3.0 Converting into sf tibble data.frame</a></li>
-  <li><a href="#visualising-as-point-symbol-map" id="toc-visualising-as-point-symbol-map" class="nav-link" data-scroll-target="#visualising-as-point-symbol-map">4.0 Visualising as Point Symbol Map</a></li>
-  <li><a href="#importing-master-plan-2019-planning-subzone-boundary" id="toc-importing-master-plan-2019-planning-subzone-boundary" class="nav-link" data-scroll-target="#importing-master-plan-2019-planning-subzone-boundary">5.0 Importing Master Plan 2019 Planning Subzone Boundary</a></li>
+  <li><a href="#extracting-trip-staring-location" id="toc-extracting-trip-staring-location" class="nav-link" data-scroll-target="#extracting-trip-staring-location">3.0 Extracting Trip Staring Location</a></li>
+  <li><a href="#extracting-trip-ending-location" id="toc-extracting-trip-ending-location" class="nav-link" data-scroll-target="#extracting-trip-ending-location">4.0 Extracting Trip Ending Location</a>
+  <ul class="collapse">
+  <li><a href="#save-rds-object" id="toc-save-rds-object" class="nav-link" data-scroll-target="#save-rds-object">4.1 Save rds Object</a></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">4.2 Import Data</a></li>
+  </ul></li>
+  <li><a href="#visualising-frequency-distribution" id="toc-visualising-frequency-distribution" class="nav-link" data-scroll-target="#visualising-frequency-distribution">5.0 Visualising frequency distribution</a></li>
+  <li><a href="#converting-into-sf-tibble-data.frame" id="toc-converting-into-sf-tibble-data.frame" class="nav-link" data-scroll-target="#converting-into-sf-tibble-data.frame">6.0 Converting into sf tibble data.frame</a></li>
+  <li><a href="#visualising-as-point-symbol-map" id="toc-visualising-as-point-symbol-map" class="nav-link" data-scroll-target="#visualising-as-point-symbol-map">7.0 Visualising as Point Symbol Map</a></li>
+  <li><a href="#importing-master-plan-2019-planning-subzone-boundary" id="toc-importing-master-plan-2019-planning-subzone-boundary" class="nav-link" data-scroll-target="#importing-master-plan-2019-planning-subzone-boundary">8.0 Importing Master Plan 2019 Planning Subzone Boundary</a></li>
   </ul>
 </nav>
     </div>
@@ -165,7 +206,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    <p>…</p>
+    <p>welcome to my in-class exercise 2! we will explore the GrabPosisi data set &amp; packages such as arrow, lubridate, etc in this exercise</p>
   </div>
 </div>
 
@@ -195,18 +236,142 @@ ul.task-list li input[type="checkbox"] {
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">1.0 Getting Started</h2>
 <p>we will use arrow, lubridate, tidyverse, tmap &amp; sf in today’s in-class exercise!</p>
+<ul>
+<li>lubridate helps you to work with date &amp; time</li>
+<li>arrow allows us to read parquet files</li>
+</ul>
+<p><strong>Question:</strong> Write a code chunk to load the R packages into R environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,sf,tmap,arrow,lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="import-grab-posisi-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="import-grab-posisi-dataset">2.0 Import Grab-Posisi Dataset</h2>
+<p><strong>Question:</strong> Write a code chunk to import part-00000-8bbff892-97d2-4011-9961-703e38972569.c000.snappy.parquet by using appropriate function of arrow package into R. Call the file df.</p>
+<ul>
+<li>cant just put part-0000 for some reason</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"data/GrabPosisi/part-00000-8bbff892-97d2-4011-9961-703e38972569.c000.snappy.parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Question:</strong></p>
+<p>Write a code chunk to convert the data type of pingtimestamp from character to date-time.</p>
+<ul>
+<li>the date time is numerical &amp; cant be easily understood</li>
+<li>this basically overwrites the df object</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>pingtimestamp <span class="ot">&lt;-</span> <span class="fu">as_datetime</span>(df<span class="sc">$</span>pingtimestamp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Question:</strong> Write a code chunk to save the reformatted df into a new rds file called part0.rds. Save the output into a sub-folder call rds.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(df, <span class="st">"data/rds/part0.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="extracting-trip-staring-location" class="level2">
+<h2 class="anchored" data-anchor-id="extracting-trip-staring-location">3.0 Extracting Trip Staring Location</h2>
+<p><strong>Question</strong> - extracting trips’ origin locations. - derive three new columns (i.e.&nbsp;variables) for weekday, starting hour and day of the month. - name the output tibble data.frame origin_df. - hint: use lubridate!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>origin_df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trj_id) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pingtimestamp) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>()<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weekday =</span> <span class="fu">wday</span>(pingtimestamp,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">label=</span><span class="cn">TRUE</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">abbr=</span><span class="cn">TRUE</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">start_hr =</span> <span class="fu">factor</span>(<span class="fu">hour</span>(pingtimestamp)),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">day =</span> <span class="fu">factor</span>(<span class="fu">mday</span>(pingtimestamp)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>call the df file
+<ul>
+<li>%&gt;% : pipe for formatting &amp; avoid the code from truncating</li>
+</ul></li>
+<li>group_by() based on trajectory</li>
+<li>sort rows based on time stamp (by default its sorted in ascending order)</li>
+<li>every trajectory, we filter out the 1st row (the first trip will be the origin)</li>
+<li>mutute helps to derive new variables =&gt; weekday &amp; start_hr &amp; day
+<ul>
+<li>wday will tell us if the timestamp is a weekday
+<ul>
+<li>label=TRUE : true ensure the day is not displayed as a number?</li>
+<li>abbr=TRUE : abbrevation (eg: mon instead of monday)</li>
+</ul></li>
+<li>factor changes it to ordinal scale =&gt; order data</li>
+<li>hour will tell us the hour (and since this the first trip, it is the starting hour)</li>
+<li>mday will tell us the day</li>
+</ul></li>
+</ul>
+</section>
+<section id="extracting-trip-ending-location" class="level2">
+<h2 class="anchored" data-anchor-id="extracting-trip-ending-location">4.0 Extracting Trip Ending Location</h2>
+<p><strong>Question:</strong> Write a code chunk to extract trips’ destination locations. Similarly, derive the weekday, ending hour and day of the month columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dest_df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trj_id) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pingtimestamp)) <span class="sc">%&gt;%</span> <span class="co"># instead of arranging in asc we arrange in desc (destination location trip time will be after the staring location)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>()<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weekday =</span> <span class="fu">wday</span>(pingtimestamp,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">label=</span><span class="cn">TRUE</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">abbr=</span><span class="cn">TRUE</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">end_hr =</span> <span class="fu">factor</span>(<span class="fu">hour</span>(pingtimestamp)),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">day =</span> <span class="fu">factor</span>(<span class="fu">mday</span>(pingtimestamp)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>instead of arranging in asc we arrange in desc
+<ul>
+<li>destination location trip time will be after the staring location</li>
+</ul></li>
+</ul>
+<section id="save-rds-object" class="level3">
+<h3 class="anchored" data-anchor-id="save-rds-object">4.1 Save rds Object</h3>
+<ul>
+<li>if we wanna ensure all our objects can be reused in rds format even if i export, save the rds!</li>
+<li>we set #| echo: false
+<ul>
+<li>hides the code on the page</li>
+</ul></li>
+</ul>
+</section>
+<section id="import-data" class="level3">
+<h3 class="anchored" data-anchor-id="import-data">4.2 Import Data</h3>
+<p>because we saved the rds object, it is very easy to just import the data!</p>
+<ul>
+<li>i do not want to run 2.0,3.0 &amp; 4.0 anymore =&gt; set to eval:false
+<ul>
+<li>this ensure that the code is displayed but not run</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>origin_df <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/rds/origin_df.rds"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dest_df <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/rds/dest_df.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="visualising-frequency-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="visualising-frequency-distribution">5.0 Visualising frequency distribution</h2>
+<p><strong>Question:</strong></p>
+<p>we will need to use ggplot2!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>origin_df, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>weekday)) <span class="sc">+</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="In-Class_Ex02_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="converting-into-sf-tibble-data.frame" class="level2">
-<h2 class="anchored" data-anchor-id="converting-into-sf-tibble-data.frame">3.0 Converting into sf tibble data.frame</h2>
+<h2 class="anchored" data-anchor-id="converting-into-sf-tibble-data.frame">6.0 Converting into sf tibble data.frame</h2>
+<p><strong>Question:</strong></p>
 </section>
 <section id="visualising-as-point-symbol-map" class="level2">
-<h2 class="anchored" data-anchor-id="visualising-as-point-symbol-map">4.0 Visualising as Point Symbol Map</h2>
+<h2 class="anchored" data-anchor-id="visualising-as-point-symbol-map">7.0 Visualising as Point Symbol Map</h2>
+<p><strong>Question:</strong></p>
 </section>
 <section id="importing-master-plan-2019-planning-subzone-boundary" class="level2">
-<h2 class="anchored" data-anchor-id="importing-master-plan-2019-planning-subzone-boundary">5.0 Importing Master Plan 2019 Planning Subzone Boundary</h2>
+<h2 class="anchored" data-anchor-id="importing-master-plan-2019-planning-subzone-boundary">8.0 Importing Master Plan 2019 Planning Subzone Boundary</h2>
+<p><strong>Question:</strong></p>
 
 
 </section>
