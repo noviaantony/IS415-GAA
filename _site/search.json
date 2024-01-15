@@ -236,5 +236,12 @@
     "title": "In-Class Exercise 2: Thematic Mapping and GeoVisualisation with R",
     "section": "",
     "text": "we will use arrow, lubridate, tidyverse, tmap & sf in today’s in-class exercise!"
+  },
+  {
+    "objectID": "In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html#converting-into-sf-tibble-data.frame",
+    "href": "In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html#converting-into-sf-tibble-data.frame",
+    "title": "In-Class Exercise 2: Thematic Mapping and GeoVisualisation with R",
+    "section": "3.0 Converting into sf tibble data.frame",
+    "text": "3.0 Converting into sf tibble data.frame"
   }
 ]

@@ -20,7 +20,7 @@ we will use arrow, lubridate, tidyverse, tmap & sf in today's in-class exercise!
 
 ## 2.0 Import Grab-Posisi Dataset
 
-## 3.0 Converting into sf tibble data.fram
+## 3.0 Converting into sf tibble data.frame
 
 ## 4.0 Visualising as Point Symbol Map
 
