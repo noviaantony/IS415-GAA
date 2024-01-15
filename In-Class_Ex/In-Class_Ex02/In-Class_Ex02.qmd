@@ -1,0 +1,27 @@
+---
+title: "In-Class Exercise 2: Thematic Mapping and GeoVisualisation with R"
+date: "`r Sys.Date()`"
+author:
+  - name: Novia Antony
+description: |
+  ...
+
+format:
+  html:
+    toc: true
+---
+
+## 1.0 Getting Started
+
+we will use arrow, lubridate, tidyverse, tmap & sf in today's in-class exercise!
+
+```{r}
+```
+
+## 2.0 Import Grab-Posisi Dataset
+
+## 3.0 Converting into sf tibble data.fram
+
+## 4.0 Visualising as Point Symbol Map
+
+## 5.0 Importing Master Plan 2019 Planning Subzone Boundary

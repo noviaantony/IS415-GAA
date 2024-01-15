@@ -10,10 +10,13 @@ format:
   html:
     toc: true
 ---
+
 ## 1.0 Overview
+
 ..explain later
 
 ## 2.0 Setup
+
 ..explain later
 
 ### 2.1 Setting Up Your File Directory
@@ -29,11 +32,11 @@ format:
 
 In this exercise, we're focusing on the following R packages:
 
-- tmap: This is our go-to package for crafting thematic maps, including types like choropleths and bubble maps.
-For a comprehensive analysis, we'll also revisit packages from our previous lesson:
+-   tmap: This is our go-to package for crafting thematic maps, including types like choropleths and bubble maps. For a comprehensive analysis, we'll also revisit packages from our previous lesson:
 
-- sf: A key package for loading, handling, and manipulating geospatial data.
-- tidyverse: A collection of packages essential for data import, manipulation, and visualization, among other data science activities.
+-   sf: A key package for loading, handling, and manipulating geospatial data.
+
+-   tidyverse: A collection of packages essential for data import, manipulation, and visualization, among other data science activities.
 
 Here's a quick script to ensure we have all these packages ready:
 
@@ -153,18 +156,16 @@ tm_shape(mpsz_pop2020)+
   tm_polygons("DEPENDENCY")
 ```
 
-
-#### 5.2.3 Drawing a choropleth map using  `tm_fill` only
+#### 5.2.3 Drawing a choropleth map using `tm_fill` only
 
 tm_fill() shades the polygons by using the default colour scheme and tm_borders() adds the borders of the shapefile onto the choropleth map.
-
 
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY")
 ```
 
-#### 5.2.4 Drawing a choropleth map using `tm_fill` &  `tm_borders`
+#### 5.2.4 Drawing a choropleth map using `tm_fill` & `tm_borders`
 
 to add the boundary of the planning subzones, tm_borders will be used as shown in the code chunk below.
 
@@ -173,7 +174,6 @@ tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY") +
   tm_borders(lwd = 0.1,  alpha = 1, col = 'blue')
 ```
-
 
 ### 5.3 Data classification methods with tmap
 
@@ -203,8 +203,8 @@ tm_shape(mpsz_pop2020)+
 summary(mpsz_pop2020$DEPENDENCY)
 ```
 
-
 #### 5.3.2 Plotting choropleth map with custom break
+
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
@@ -212,10 +212,9 @@ tm_shape(mpsz_pop2020)+
   tm_borders(alpha = 0.5)
 ```
 
-
 ### 5.4 Colour Scheme
 
-### 5.4.1  ColourBrew Palette
+### 5.4.1 ColourBrew Palette
 
 to change the colour, we assign the preferred colour to palette argument of tm_fill() as shown in the code chunk below.
 
@@ -227,7 +226,6 @@ tm_shape(mpsz_pop2020)+
           palette = "Blues") +
   tm_borders(alpha = 0.5)
 ```
-
 
 reverse the colour shading, add a “-” prefix.
 
@@ -262,7 +260,6 @@ tm_shape(mpsz_pop2020)+
   tm_borders(alpha = 0.5)
 ```
 
-
 ### 5.5.2 Map Style
 
 ```{r}
@@ -273,7 +270,6 @@ tm_shape(mpsz_pop2020)+
   tm_borders(alpha = 0.5) +
   tmap_style("classic")
 ```
-
 
 ### 5.5.3 Cartographic Furniture
 
@@ -304,6 +300,7 @@ tm_shape(mpsz_pop2020)+
 facet maps are composed of many maps arrange side-by-side, and sometimes stacked vertically. Small multiple maps enable the visualisation of how spatial relationships change with respect to another variable, such as time.
 
 #### 5.6.1 assigning multiple values to at least one of the aesthetic arguments
+
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill(c("YOUNG", "AGED"),
@@ -322,8 +319,7 @@ tm_shape(mpsz_pop2020)+
   tm_layout(legend.position = c("right", "bottom"))
 ```
 
-
-#### 5.6.2  defining a group-by variable in tm_facets()
+#### 5.6.2 defining a group-by variable in tm_facets()
 
 ```{r}
 tm_shape(mpsz_pop2020) +
@@ -356,8 +352,8 @@ agedmap <- tm_shape(mpsz_pop2020)+
 tmap_arrange(youngmap, agedmap, asp=1, ncol=2)
 ```
 
-
 ### 5.7 Mappping Spatial Object Meeting a Selection Criterion
+
 ```{r}
 tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
   tm_fill("DEPENDENCY", 
@@ -377,6 +373,3 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
 ## 6.0 Final Reflections
 
 ...reflect later
-
-
-
