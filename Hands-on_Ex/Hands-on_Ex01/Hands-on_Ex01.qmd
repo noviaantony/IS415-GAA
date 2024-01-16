@@ -138,6 +138,19 @@ What does this chunk of code do?
     -   Our listings_sf now has a new column called geometry.
     -   longitude and latitude have been combined into this geometry column, which is perfect for mapping and spatial analysis!
 
+
+#### What is the difference between geospatial & aspatial data?
+
+- **Geospatial Data:** 
+  -Contains geographical or spatial information. 
+  - In our case, it includes the geographical boundaries of Singapore at the planning subzone. This data type typically includes coordinates, shapes, and other location-specific details that define physical spaces.
+  
+- **Aspatial Data:**
+  - Lacks inherent geographical information like coordinates or boundaries.
+  - In this dataset, the focus is on demographic statistics rather than physical locations.
+  - Although it doesn't contain geographic coordinates, it includes fields like PA (Planning Area) and SZ (Subzone) that can be used as unique identifiers.
+  - These identifiers allow the aspatial data to be linked or geocoded to geospatial data, like the MP14_SUBZONE_WEB_PL shapefile, for spatial analysis or mapping.
+
 ## 4.0 Exploring the Contents of Our Data Frames
 
 Now that we've got our data frames ready, let's find out what's inside them. We'll use three easy methods to peek into our data frames and understand their structure and content.
