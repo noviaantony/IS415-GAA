@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Novia Antony">
-<meta name="dcterms.date" content="2024-01-15">
+<meta name="dcterms.date" content="2024-01-16">
 <meta name="description" content="welcome to my in-class exercise 2! we will explore the GrabPosisi data set &amp; packages such as arrow, lubridate, etc in this exercise">
 
 <title>Novia’s IS415 Coursework - In-Class Exercise 2: Thematic Mapping and GeoVisualisation with R</title>
@@ -137,6 +137,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html" rel="" target="">
  <span class="dropdown-text">In-Class Exercise 2</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html" rel="" target="">
+ <span class="dropdown-text">In-Class Exercise 3</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -151,6 +155,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 3</span></a>
   </li>  
     </ul>
   </li>
@@ -189,10 +197,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#save-rds-object" id="toc-save-rds-object" class="nav-link" data-scroll-target="#save-rds-object">4.1 Save rds Object</a></li>
   <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">4.2 Import Data</a></li>
   </ul></li>
-  <li><a href="#visualising-frequency-distribution" id="toc-visualising-frequency-distribution" class="nav-link" data-scroll-target="#visualising-frequency-distribution">5.0 Visualising frequency distribution</a></li>
-  <li><a href="#converting-into-sf-tibble-data.frame" id="toc-converting-into-sf-tibble-data.frame" class="nav-link" data-scroll-target="#converting-into-sf-tibble-data.frame">6.0 Converting into sf tibble data.frame</a></li>
+  <li><a href="#visualising-frequency-distribution" id="toc-visualising-frequency-distribution" class="nav-link" data-scroll-target="#visualising-frequency-distribution">5.0 Visualising Frequency Distribution</a>
+  <ul class="collapse">
+  <li><a href="#how-does-the-code-work" id="toc-how-does-the-code-work" class="nav-link" data-scroll-target="#how-does-the-code-work">How does the code work?</a></li>
+  </ul></li>
+  <li><a href="#converting-into-sf-tibble-data.frame" id="toc-converting-into-sf-tibble-data.frame" class="nav-link" data-scroll-target="#converting-into-sf-tibble-data.frame">6.0 Converting into sf tibble data.frame</a>
+  <ul class="collapse">
+  <li><a href="#how-does-the-code-work-1" id="toc-how-does-the-code-work-1" class="nav-link" data-scroll-target="#how-does-the-code-work-1">How does the code work?</a></li>
+  </ul></li>
   <li><a href="#visualising-as-point-symbol-map" id="toc-visualising-as-point-symbol-map" class="nav-link" data-scroll-target="#visualising-as-point-symbol-map">7.0 Visualising as Point Symbol Map</a></li>
-  <li><a href="#importing-master-plan-2019-planning-subzone-boundary" id="toc-importing-master-plan-2019-planning-subzone-boundary" class="nav-link" data-scroll-target="#importing-master-plan-2019-planning-subzone-boundary">8.0 Importing Master Plan 2019 Planning Subzone Boundary</a></li>
+  <li><a href="#importing-master-plan-2019-planning-subzone-boundary-diy" id="toc-importing-master-plan-2019-planning-subzone-boundary-diy" class="nav-link" data-scroll-target="#importing-master-plan-2019-planning-subzone-boundary-diy">8.0 Importing Master Plan 2019 Planning Subzone Boundary (DIY)</a></li>
   </ul>
 </nav>
     </div>
@@ -223,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 15, 2024</p>
+      <p class="date">January 16, 2024</p>
     </div>
   </div>
   
@@ -249,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="import-grab-posisi-dataset">2.0 Import Grab-Posisi Dataset</h2>
 <p><strong>Question:</strong> Write a code chunk to import part-00000-8bbff892-97d2-4011-9961-703e38972569.c000.snappy.parquet by using appropriate function of arrow package into R. Call the file df.</p>
 <ul>
-<li>cant just put part-0000 for some reason</li>
+<li>To clarify: can’t just put part-0000 for some reason</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"data/GrabPosisi/part-00000-8bbff892-97d2-4011-9961-703e38972569.c000.snappy.parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -270,7 +284,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="extracting-trip-staring-location" class="level2">
 <h2 class="anchored" data-anchor-id="extracting-trip-staring-location">3.0 Extracting Trip Staring Location</h2>
-<p><strong>Question</strong> - extracting trips’ origin locations. - derive three new columns (i.e.&nbsp;variables) for weekday, starting hour and day of the month. - name the output tibble data.frame origin_df. - hint: use lubridate!</p>
+<p><strong>Question</strong></p>
+<ul>
+<li>extracting trips’ origin locations.</li>
+<li>derive three new columns (i.e.&nbsp;variables) for weekday, starting hour and day of the month.</li>
+<li>name the output tibble data.frame origin_df.</li>
+<li>hint: use lubridate!</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>origin_df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(trj_id) <span class="sc">%&gt;%</span></span>
@@ -349,9 +369,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="visualising-frequency-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="visualising-frequency-distribution">5.0 Visualising frequency distribution</h2>
+<h2 class="anchored" data-anchor-id="visualising-frequency-distribution">5.0 Visualising Frequency Distribution</h2>
 <p><strong>Question:</strong></p>
-<p>we will need to use ggplot2!</p>
+<p>we will need to use ggplot2 to create a bar chart that visualises the frequency distribution</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>origin_df, </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>weekday)) <span class="sc">+</span> </span>
@@ -360,18 +380,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="In-Class_Ex02_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<section id="how-does-the-code-work" class="level3">
+<h3 class="anchored" data-anchor-id="how-does-the-code-work">How does the code work?</h3>
+<ul>
+<li>ggplot()
+<ul>
+<li>data=origin_df: specifies the datasetthat ggplot2 will use to build the plot (origin_df)</li>
+<li>aes(x=weekday): inside the <code>aes()</code> (aesthetics) function, the x parameter is set to weekday. This means that the bar chart will be based on the weekday variable in the origin_df dataset, which likely represents days of the week.</li>
+</ul></li>
+<li>geom_bar(): adds a bar geometry to the plot, creating a bar chart. By default, geom_bar() counts the number of cases for each group (in this case, each unique value of weekday), and then plots the frequency of these counts.</li>
+</ul>
+</section>
 </section>
 <section id="converting-into-sf-tibble-data.frame" class="level2">
 <h2 class="anchored" data-anchor-id="converting-into-sf-tibble-data.frame">6.0 Converting into sf tibble data.frame</h2>
 <p><strong>Question:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>origin_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(origin_df,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"rawlng"</span>, <span class="st">"rawlat"</span>),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">3414</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="how-does-the-code-work-1" class="level3">
+<h3 class="anchored" data-anchor-id="how-does-the-code-work-1">How does the code work?</h3>
+<ul>
+<li><code>st_as_sf()</code>: this function from the sf is used to convert a standard data frame into a spatial data frame.
+<ul>
+<li><code>origin_df</code>: this is the original data frame that we want to convert into a spatial format.</li>
+<li><code>coords = c("rawlng", "rawlat")</code>: specifies the columns in origin_df that contain the longitude (rawlng) and latitude (rawlat) coordinates. <strong>These columns are used to create the spatial geometry in the new sf data frame</strong> -<code>crs = 4326</code>: sets the Coordinate Reference System (CRS) to 4326, which is a common global latitude-longitude system (WGS 84).</li>
+</ul></li>
+<li><code>st_transform(crs = 3414)</code>: this function is used to transform or reproject the spatial data into a different CRS. Here, the data is being transformed to CRS 3414 which typically corresponds to a specific local system.</li>
+</ul>
+</section>
 </section>
 <section id="visualising-as-point-symbol-map" class="level2">
 <h2 class="anchored" data-anchor-id="visualising-as-point-symbol-map">7.0 Visualising as Point Symbol Map</h2>
 <p><strong>Question:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(origin_sf) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="In-Class_Ex02_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li><code>tmap_mode("plot")</code>
+<ul>
+<li><code>tmap_mode()</code>: sets the mode of tmap visualization.</li>
+<li><code>"plot"</code> : used for creating static plots. tmap also has a “view” mode for interactive visualizations!</li>
+</ul></li>
+<li><code>tm_shape(origin_sf)</code>
+<ul>
+<li><code>tm_shape()</code>: sets the spatial data to be used for subsequent map layers.</li>
+<li><code>origin_sf</code>: the spatial data frame (that we created in the previous step) that contains geographic information. This will form the basis of the map.</li>
+</ul></li>
+<li><code>tm_dots()</code>
+<ul>
+<li><code>tm_dots()</code>: adds a layer of points to the map. Each point represents a row in the origin_sf data frame, plotted according to its spatial coordinates (longitude and latitude). By default, tm_dots() uses simple dot symbols to represent each point.
+<ul>
+<li>The size, color, and other aesthetic properties of these dots can be customized, but in this basic form, it simply plots all points with a default style.</li>
+</ul></li>
+</ul></li>
+</ul>
 </section>
-<section id="importing-master-plan-2019-planning-subzone-boundary" class="level2">
-<h2 class="anchored" data-anchor-id="importing-master-plan-2019-planning-subzone-boundary">8.0 Importing Master Plan 2019 Planning Subzone Boundary</h2>
-<p><strong>Question:</strong></p>
+<section id="importing-master-plan-2019-planning-subzone-boundary-diy" class="level2">
+<h2 class="anchored" data-anchor-id="importing-master-plan-2019-planning-subzone-boundary-diy">8.0 Importing Master Plan 2019 Planning Subzone Boundary (DIY)</h2>
+<p><strong>Question:</strong> Using the step your learned from previous lesson, import Master Plan 2019 Subzone downloaded from data.Gov as sf tibble data.frame. Call the output mpsz2019.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mpsz2019 <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"data/dataGov/MPSZ2019.kml"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">3414</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `URA_MP19_SUBZONE_NO_SEA_PL' from data source 
+  `/Users/noviaantony/Desktop/noviaantony/IS415-GAA/In-Class_Ex/In-Class_Ex02/data/dataGov/MPSZ2019.kml' 
+  using driver `KML'
+Simple feature collection with 332 features and 2 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY, XYZ
+Bounding box:  xmin: 103.6057 ymin: 1.158699 xmax: 104.0885 ymax: 1.470775
+z_range:       zmin: 0 zmax: 0
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+</div>
+<p>D</p>
+<p><strong>Question:</strong> Using the step your learned, plot a point symbol map look similar to the figure below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz2019) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>() <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(origin_sf) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="In-Class_Ex02_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
 </section>
